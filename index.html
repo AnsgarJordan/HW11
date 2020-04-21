@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <!--<script src="search.js"></script>-->
+ <title>Website to find the company</title>
+</head>
+<style> 
+    body {
+        text-align:center;
+        
+        background-image: linear-gradient(red, yellow, blue);
+        font-family: Helvetica;
+        font-size: 5vmin;
+    }
+    .info {
+        background-color: white;
+        height: 100vh;
+        width:50vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #ticker, #company{
+        height: 3vmin;
+        width: 3vmin;
+    }
+     #query, #button {
+        height:5vh;
+        width: 10vw;
+        font-size:2vmin;
+     }
+     #button:hover{
+        background-color: red;
+     }
+
+
+</style>
+<body>
+<!-- String-Parsing Code -->
+<script language="javascript">
+
+function search()
+{
+    var tick_or_name = document.getElementById("query").value;
+    var option = document.getElementsByName("option");
+    var selected;
+    if (option[0].checked) {
+        selected = "company";
+    } else if (option[1].checked) { 
+        selected = "ticker";
+    }
+    if (selected == "ticker"){
+       // tick_or_name += '\r';
+       search_Ticker(tick_or_name);
+    } else {
+        search_Company(tick_or_name);
+    }
+}
+/* search by ticker */
+async function search_Company(company)
+{
+  var result = await fetch('/company/' + company);
+  console.log(result);
+  const obj = await result.json();
+  document.getElementById('result1').innerHTML = "The ticker associated with this company is: " + obj.Ticker;
+}
+/* search by ticker */
+async function search_Ticker(ticker)
+{
+  var result = await fetch('/ticker/' + ticker);
+  console.log(result);
+  const obj = await result.json();
+  document.getElementById('result2').innerHTML = "The company name associated with this ticker is: " + obj.Company;
+}
+
+</script>
+    <div class="info"> 
+    <h3 class="title">Comp20 HW 13 - NodeJS and MongoDB</h3>
+    <h4>Search for A Company or its Ticker</h4>
+        <form id="query-form">
+            <input type="radio" id="company" name="option" value="company">
+            <label for="company">Company</label><br>
+            <input type="radio" id="ticker" name="option" value="ticker">
+            <label for="ticker">Ticker</label><br>
+            <input id="query" name="name" type="text" placeholder="Ticker or Name" required>
+        </form>
+        <button id="button" onclick="search()">Find Company or Ticker</button>
+
+        <div id="result2"></div>
+        <div id="result1"></div> 
+    </div>
+</body>
+</html>
