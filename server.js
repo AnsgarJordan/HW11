@@ -14,7 +14,8 @@ async function main() {
 	client = await MongoClient.connect(url);
 	db = client.db('companies');
 	collection = db.collection('companies');
-	await app.listen(8080);
+	var port = process.env.PORT || 8080;
+	await app.listen(port);
 	/* make sure its loaded before line printed */
 	console.log("listening at port 8080");
 }
