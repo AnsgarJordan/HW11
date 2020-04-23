@@ -1,10 +1,10 @@
 {
-  "name": "helloapp",
+  "name": "ansgar-hw",
   "version": "1.0.0",
   "description": "node app ",
-  "main": "hello_app.js",
+  "main": "server.js",
   "scripts": {
-  "start": "node hello_app.js"
+  "start": "node server.js"
 },
   "repository": {
   "type": "git",
@@ -15,5 +15,5 @@
   "bugs": {
   "url": ""
 },
-  "homepage": ""
+  "homepage": "https://ansgar-hw.herokuapp.com/"
 }
